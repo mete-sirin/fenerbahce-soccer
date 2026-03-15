@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fenerbahçe-Team</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/style.css" />
+    <script src="scripts/kadro.js" defer></script>
+  </head>
+  <body>
+    <div class="header-section">
+      <div class="upper-part">
+        <h2 class="title">Fenerbahçe</h2>
+        <img
+          src="assets/images/fb-icon.svg"
+          alt="Fenerbahçe Logosu"
+          class="logo"
+        />
+      </div>
+      <ul class="option-list">
+        <li><a href="index.html" class="option">Anasayfa</a></li>
+        <li><a href="kadro.html" class="option">Kadro</a></li>
+        <li><a href="fikstur.html" class="option">Fikstür</a></li>
+        <li><a href="standings.html" class="option">Puan Durumu</a></li>
+      </ul>
+    </div>
+    <div class="kadro-main-wrapper">
+      <div class="position-bar">
+        <button class="position-bar--btn-before" id="btn-prev">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="position-bar--icon"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
+            />
+          </svg>
+        </button>
+        <span class="position-bar--header-text" id="position-label"></span>
+        <button class="position-bar--btn-after" id="btn-next">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="position-bar--icon"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="team-container" id="team-container"></div>
+    </div>
+
+    <template id="player-card-template">
+      <div class="player-card-container">
+        <div class="player-card-header">
+          <span class="player-card-header--position"></span>
+          <span class="player-card-header--season">2025/26</span>
+        </div>
+        <div class="image-section">
+          <img class="player-img" src="" alt="" />
+        </div>
+        <div class="player-card-body">
+          <div class="name-container">
+            <span class="player-name--first name-section"></span>
+            <span class="player-name--last name-section"></span>
+          </div>
+          <div class="stats-row">
+            <div class="matches">
+              <span class="stat--value"></span>
+              <span class="stat--label">Maç</span>
+            </div>
+            <div class="goals">
+              <span class="stat--value"></span>
+              <span class="stat--label">Gol</span>
+            </div>
+            <div class="assists">
+              <span class="stat--value"></span>
+              <span class="stat--label">Asist</span>
+            </div>
+            <div class="minutes-played">
+              <span class="stat--value"></span>
+              <span class="stat--label">Dakika</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-market-value">
+          <span class="footer-market-value--label">Piyasa Değeri</span>
+          <span class="footer-market-value--amount"></span>
+        </div>
+      </div>
+    </template>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <img
+              src="assets/images/fb-icon.svg"
+              alt="Fenerbahçe Logosu"
+              class="footer-logo"
+            />
+            <span class="footer-title">Fenerbahçe</span>
+          </div>
+          <ul class="footer-nav">
+            <li><a href="index.html" class="footer-link">Anasayfa</a></li>
+            <li><a href="kadro.html" class="footer-link">Kadro</a></li>
+            <li><a href="fikstur.html" class="footer-link">Fikstür</a></li>
+            <li>
+              <a href="standings.html" class="footer-link">Puan Durumu</a>
+            </li>
+          </ul>
+        </div>
+        <span class="footer-divider"></span>
+        <p class="footer-copy">© 2025 Fenerbahçe S.K. · Est. 1907 ·</p>
+      </div>
+    </footer>
+  </body>
+</html>
