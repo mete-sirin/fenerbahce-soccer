@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap");
+
+@keyframes pcFloat {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@theme {
+  --color-bg: #0b1e3d;
+  --color-bg-dark: #060f1e;
+  --color-accent: #ffd43b;
+  --color-blue: #4c6ef5;
+  --color-text: #f5f1e8;
+}

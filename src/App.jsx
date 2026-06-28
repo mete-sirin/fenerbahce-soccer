@@ -1,9 +1,10 @@
-import Navbar from "./components/Navbar";
+import About from "./pages/About";
+import Squad from "./pages/Squad";
 
 function App() {
   return (
     <>
-      <Navbar />
+      <Squad />
     </>
   );
 }
