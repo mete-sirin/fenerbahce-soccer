@@ -42,14 +42,12 @@ export default function PlayerCard({ player }) {
         background: "linear-gradient(180deg,#13294f 0%,#0c1d3c 100%)",
       }}
     >
-      {/* Photo zone */}
       <div
         className="relative h-45 overflow-hidden"
         style={{
           background: "linear-gradient(180deg,#1c3a6b 0%,#13294f 100%)",
         }}
       >
-        {/* diagonal stripe texture */}
         <div
           className="absolute inset-0"
           style={{
@@ -57,7 +55,6 @@ export default function PlayerCard({ player }) {
               "repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 10px, transparent 10px 20px)",
           }}
         />
-        {/* shirt number watermark */}
         <div
           className="absolute right-2.5 -bottom-1.5 font-bold"
           style={{
@@ -68,10 +65,8 @@ export default function PlayerCard({ player }) {
         >
           {player.shirtNumber ?? ""}
         </div>
-        {/* player photo OR "Görsel Yok" silhouette placeholder */}
         {imgFailed ? (
           <>
-            {/* head-and-shoulders silhouette */}
             <svg
               viewBox="0 0 230 160"
               width="100%"
@@ -104,7 +99,6 @@ export default function PlayerCard({ player }) {
             onError={() => setImgFailed(true)}
           />
         )}
-        {/* bottom fade */}
         <div
           className="absolute right-0 bottom-0 left-0 h-10"
           style={{
@@ -113,7 +107,6 @@ export default function PlayerCard({ player }) {
           }}
         />
 
-        {/* position badge + role */}
         <div className="absolute top-3 left-3 flex items-center gap-1.75">
           <span
             className="inline-flex h-6 min-w-8.5 items-center justify-center rounded-md px-2"
@@ -138,7 +131,6 @@ export default function PlayerCard({ player }) {
           </span>
         </div>
 
-        {/* rating chip */}
         <div
           className="absolute top-3 right-3 flex min-w-11.5 flex-col items-center rounded-lg pt-1.25 pb-1 shadow-[0_6px_16px_-6px_rgba(0,0,0,.6)]"
           style={{ background: ratingBg }}
@@ -164,7 +156,6 @@ export default function PlayerCard({ player }) {
           </span>
         </div>
 
-        {/* injury badge — bottom-right of photo */}
         {player.injured && (
           <span
             className="absolute right-3 bottom-3 inline-flex items-center gap-1.25 rounded-full px-2 py-0.75"
@@ -180,7 +171,6 @@ export default function PlayerCard({ player }) {
         )}
       </div>
 
-      {/* Identity */}
       <div className="px-4 pt-3.5">
         <div className="mb-1.5 flex items-center gap-2">
           <span
@@ -230,14 +220,12 @@ export default function PlayerCard({ player }) {
         </div>
       </div>
 
-      {/* Stats */}
       <div className="mx-4 mt-3.5 grid grid-cols-3 overflow-hidden rounded-[10px] border border-white/8">
         <Stat value={player.goals ?? 0} label="GOL" border />
         <Stat value={player.assists ?? 0} label="ASİST" border />
         <Stat value={player.age ?? "—"} label="YAŞ" />
       </div>
 
-      {/* Market value */}
       <div
         className="mt-3.5 flex items-center justify-between px-4 py-3"
         style={{

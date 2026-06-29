@@ -35,7 +35,6 @@ export default function PositionSelector({ position, setPosition }) {
         · Mevki seç ·
       </div>
 
-      {/* pitch */}
       <div
         style={{
           position: "relative",
@@ -48,7 +47,6 @@ export default function PositionSelector({ position, setPosition }) {
           boxShadow: "0 24px 60px -24px rgba(0,0,0,.7)",
         }}
       >
-        {/* subtle stripes */}
         <div
           style={{
             position: "absolute",
@@ -58,7 +56,6 @@ export default function PositionSelector({ position, setPosition }) {
           }}
         />
 
-        {/* outer boundary */}
         <div
           style={{
             position: "absolute",
@@ -67,7 +64,6 @@ export default function PositionSelector({ position, setPosition }) {
             borderRadius: "3px",
           }}
         />
-        {/* halfway line */}
         <div
           style={{
             position: "absolute",
@@ -78,7 +74,6 @@ export default function PositionSelector({ position, setPosition }) {
             background: line,
           }}
         />
-        {/* center circle */}
         <div
           style={{
             position: "absolute",
@@ -91,7 +86,6 @@ export default function PositionSelector({ position, setPosition }) {
             borderRadius: "50%",
           }}
         />
-        {/* center dot */}
         <div
           style={{
             position: "absolute",
@@ -104,7 +98,6 @@ export default function PositionSelector({ position, setPosition }) {
             background: line,
           }}
         />
-        {/* top penalty box */}
         <div
           style={{
             position: "absolute",
@@ -129,7 +122,6 @@ export default function PositionSelector({ position, setPosition }) {
             borderTop: "none",
           }}
         />
-        {/* bottom penalty box */}
         <div
           style={{
             position: "absolute",
@@ -155,7 +147,6 @@ export default function PositionSelector({ position, setPosition }) {
           }}
         />
 
-        {/* interactive zones */}
         {zones.map((z) => {
           const isActive = z.key === position;
           return (

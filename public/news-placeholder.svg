@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" width="320" height="180">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17376a"></stop>
+      <stop offset="1" stop-color="#0e2347"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="180" fill="url(#bg)"></rect>
+  <image x="128" y="44" width="64" height="64" opacity="0.65"></image>
+  <text x="160" y="126" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="800" font-size="11" letter-spacing="4" fill="rgba(255,212,59,0.6)" text-transform="uppercase">HABERLER</text>
+  <text x="310" y="172" text-anchor="end" font-family="system-ui, sans-serif" font-weight="600" font-size="7.5" letter-spacing="2.5" fill="rgba(245,241,232,0.3)">GÖRSEL YOK</text>
+</svg>

@@ -4,6 +4,7 @@ import fetchSquad from "../scripts/fetchSquad";
 import PlayerCard from "../components/PlayerCard";
 import Navbar from "../components/Navbar";
 import PositionSelector from "../components/PositionSelector";
+import Footer from "../components/Footer";
 
 export default function Squad() {
   const positionsArr = ["attackers", "midfielders", "defenders", "keepers"];
@@ -18,6 +19,7 @@ export default function Squad() {
 
     async function getPlayers() {
       const data = await fetchSquad();
+      if (!data?.response?.list?.squad) return;
       const groups = data.response.list.squad.filter(
         (g) => g.title !== "coach",
       );
@@ -25,7 +27,7 @@ export default function Squad() {
       setSquad(groups);
     }
     getPlayers();
-  }, []);
+  }, [squad]);
 
   return (
     <div className="relative flex min-h-screen flex-col">
@@ -39,17 +41,16 @@ export default function Squad() {
 
       <Navbar></Navbar>
 
-      {/* Pitch centered on the screen at mount, then scrolls with the page */}
       <div className="absolute top-[50vh] left-0 z-10 hidden -translate-y-1/2 lg:block">
         <PositionSelector position={position} setPosition={setPosition} />
       </div>
 
-      <div className="flex items-start">
+      <div className="flex flex-1 items-start">
         {!squad ? (
           <p className="text-text p-10 text-center">Loading…</p>
         ) : (
           <ul
-            className="grid flex-1 justify-center gap-6 p-8 lg:ml-72"
+            className="grid flex-1 justify-center gap-6 p-8 pb-16 lg:ml-72"
             style={{
               gridTemplateColumns: "repeat(auto-fit, 260px)",
             }}
@@ -64,6 +65,7 @@ export default function Squad() {
           </ul>
         )}
       </div>
+      <Footer></Footer>
     </div>
   );
 }

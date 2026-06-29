@@ -1,52 +1,72 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-export default function Home() {
+export default function About() {
   return (
     <>
-      {/* Hero section */}
       <div
-        className="relative flex min-h-screen flex-col bg-cover bg-center md:min-h-270"
+        className="relative flex min-h-screen flex-col overflow-hidden"
         style={{
-          backgroundImage:
-            "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.65) 40%, rgba(0,0,0,0.4) 60%, rgba(11,30,61,1) 100%), url(/stadium.jpg)",
+          background:
+            "radial-gradient(120% 90% at 50% -10%, #163461, #0b1e3d 55%, #081730)",
         }}
       >
         <Navbar></Navbar>
-        <div className="flex flex-1 flex-col items-center gap-8 px-6 py-12 md:flex-row md:items-center md:px-20 md:py-0">
-          {/* Title */}
-          <div className="flex flex-col">
-            <span className="text-accent flex items-center gap-3 text-base md:text-xl">
-              <span className="bg-accent h-0.5 flex-1" />
-              Fenerbahçe S.K. · Est. 1907
-              <span className="bg-accent h-0.5 flex-1" />
+
+        <span
+          className="text-text/4 pointer-events-none absolute inset-x-0 top-1/2 z-0 -translate-y-1/2 text-center leading-none font-extrabold tracking-tighter select-none"
+          style={{ fontSize: "clamp(16rem, 40vw, 44rem)" }}
+        >
+          1907
+        </span>
+
+        <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center">
+          <span className="text-accent mb-7 flex items-center gap-3.5">
+            <span className="bg-accent h-0.5 w-12" />
+            <span
+              className="uppercase"
+              style={{
+                font: "600 13px/1 'Barlow',sans-serif",
+                letterSpacing: ".24em",
+              }}
+            >
+              Fenerbahçe S.K. · 1907'den Bugüne
             </span>
-            <h1 className="flex flex-col font-extrabold">
-              <span className="text-text text-4xl md:text-6xl lg:text-8xl">
-                Herşey
-              </span>
-              <span className="text-accent text-3xl md:text-5xl lg:text-8xl">
-                1907'de
-              </span>
-              <span className="text-text text-4xl md:text-6xl lg:text-8xl">
-                Başladı
-              </span>
-            </h1>
-            <span className="bg-accent mt-6 block h-0.75 w-3/4" />
-          </div>
-          {/* Content */}
-          <p className="text-text flex-1 text-center text-lg font-semibold [text-shadow:0px_1px_8px_rgba(0,0,0,0.8)] md:pr-20 md:text-2xl">
-            Köklü bir tarihin mirasçısı olan Fenerbahçe, 1907'den bu yana Türk
-            futbolunun sembolü olmaya devam ediyor. Tutkuyla örülmüş bu
-            yolculukta milyonlarca taraftar, tek yürek tek ses.
+            <span className="bg-accent h-0.5 w-12" />
+          </span>
+
+          <h1
+            className="m-0 uppercase"
+            style={{
+              fontFamily: "'Barlow Condensed',sans-serif",
+              fontWeight: 800,
+              lineHeight: ".9",
+              letterSpacing: ".005em",
+              color: "#f5f1e8",
+              textShadow: "0 6px 28px rgba(0,0,0,.55)",
+            }}
+          >
+            <span className="block text-6xl md:text-8xl">Bir Kulüp Değil,</span>
+            <span
+              className="block text-6xl md:text-8xl"
+              style={{ color: "#ffd43b" }}
+            >
+              Bir Tutku
+            </span>
+          </h1>
+
+          <p className="text-text/80 mt-8 max-w-2xl text-lg leading-relaxed font-medium md:text-xl">
+            Bir asrı aşan onurlu bir geçmiş, milyonların yüreğinde yaşayan bir
+            sevda. Sarı-lacivertin hikâyesi; tutkunun, dayanışmanın ve hiç
+            sönmeyen bir inancın hikâyesidir.
           </p>
+
+          <span className="bg-accent mt-10 block h-0.75 w-24" />
         </div>
       </div>
 
-      {/* About Section */}
       <div className="bg-bg relative flex items-center justify-center overflow-hidden">
         <div className="relative flex h-screen w-full max-w-7xl items-center justify-center gap-24 px-16">
-          {/* Image */}
           <div className="border-accent shrink-0 rounded-sm border p-3">
             <img
               src="trophy.jpeg"
@@ -55,9 +75,7 @@ export default function Home() {
             />
           </div>
 
-          {/* Text */}
           <div className="relative flex max-w-2xl flex-col gap-10">
-            {/* Watermark */}
             <span className="text-text/5 pointer-events-none absolute -top-24 left-0 z-0 text-[20rem] leading-none font-extrabold select-none">
               1907
             </span>
@@ -101,9 +119,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Hall of Fame Section */}
       <div className="bg-bg flex flex-col items-center px-6 py-24 md:px-20">
-        {/* Header */}
         <span className="text-accent text-sm font-semibold tracking-wide">
           Fenerbahçe S.K. · Hall of Fame
         </span>
@@ -112,16 +128,13 @@ export default function Home() {
           <span className="text-accent">OYUNCU</span>
         </h2>
 
-        {/* Divider */}
         <div className="mt-8 flex w-full max-w-5xl items-center gap-4">
           <span className="bg-accent/40 h-px flex-1" />
           <span className="text-accent rotate-45 text-xs">◆</span>
           <span className="bg-accent/40 h-px flex-1" />
         </div>
 
-        {/* Content */}
         <div className="mt-16 flex w-full max-w-5xl flex-col items-center gap-16 md:flex-row md:items-center">
-          {/* Image */}
           <div className="border-accent shrink-0 rounded-sm border p-3">
             <div className="overflow-hidden rounded-sm">
               <img
@@ -132,7 +145,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Text */}
           <div className="flex flex-col gap-5">
             <span className="text-accent text-sm font-bold tracking-widest">
               2004 – 2012

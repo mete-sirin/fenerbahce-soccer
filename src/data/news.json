@@ -1,0 +1,40 @@
+{
+  "articles": [
+    {
+      "headline": "Fenerbahçe, Amara Diouf ile 5 yıllık sözleşme imzaladı",
+      "summary": "Fenerbahçe, 18 yaşındaki Senegalli forvet Amara Diouf’un transferini resmen açıkladı ve oyuncu ile 5 yıllık sözleşme imzalandığını duyurdu. Kulüp, imza töreninin kulüp binasında yönetim kurulu üyelerinin katılımıyla gerçekleştiğini belirtti.",
+      "category": "transfer",
+      "date": "2026-06-24",
+      "source": "beIN SPORTS Türkiye",
+      "url": "https://beinsports.com.tr/haber/fenerbahce-transferi-resmen-duyurdu-4",
+      "imageUrl": "https://media05.ligtv.com.tr/img/news/2026/6/24/fenerbahce-transferi-resmen-duyurdu-4/748_416/diouf.jpg"
+    },
+    {
+      "headline": "Fenerbahçe, Vedat Muriqi’yi kadrosuna kattı",
+      "summary": "Fenerbahçe, Mallorca’dan Vedat Muriqi’nin transferini duyurdu ve oyuncunun 3 yıllık sözleşmeye imza attığını açıkladı. Muriqi, kulübe dönüşünden dolayı mutluluğunu dile getirdi.",
+      "category": "transfer",
+      "date": "2026-06-19",
+      "source": "Mackolik",
+      "url": "https://www.mackolik.com/futbol/haber/fenerbahce-vedat-muriqiyi-kadrosuna-katti/70dd1553-ad5f-491c-83d8-215c770ed324",
+      "imageUrl": null
+    },
+    {
+      "headline": "UEFA’dan Fenerbahçe’ye deplasman seyircisi yasağı ve para cezası",
+      "summary": "UEFA Disiplin Kurulu, Nottingham Forest ile oynanan Avrupa Ligi son 16 play-off rövanşındaki olaylar nedeniyle Fenerbahçe’ye bir sonraki Avrupa maçında deplasmana seyirci götürmeme cezası verdi. Kulübe ayrıca 30 bin avro ve stadyuma verilen zararlar için 20 bin 500 avro para cezası uygulandı.",
+      "category": "club",
+      "date": "2026-03-25",
+      "source": "beIN SPORTS Türkiye",
+      "url": "https://beinsports.com.tr/haber/uefadan-fenerbahceye-ceza-resmen-aciklandi",
+      "imageUrl": "https://media04.ligtv.com.tr/img/news/2026/3/25/uefadan-fenerbahceye-ceza-resmen-aciklandi/748_416/fb.jpeg"
+    },
+    {
+      "headline": "Fenerbahçe’den dört futbolcunun sakatlık durumuna ilişkin açıklama",
+      "summary": "Kasımpaşa maçı sonrası yapılan MR görüntülemeleri sonucunda Çağlar Söyüncü ve Anderson Talisca’da kısmi yırtık, Ederson ve Jayden Oosterwolde’de zorlanma tespit edildiği açıklandı. Oyuncuların tedavilerine başlandığı ve süreçlerinin kulüp sağlık ekibi tarafından takip edildiği belirtildi.",
+      "category": "injury",
+      "date": "2026-02-24",
+      "source": "A Spor",
+      "url": "https://www.aspor.com.tr/fenerbahce/2026/02/24/son-dakika-fenerbahcede-caglar-soyuncu-anderson-talisca-ederson-ve-jayden-oosterwolde-aciklamasi-iste-son-durumlari/amp",
+      "imageUrl": null
+    }
+  ]
+}
