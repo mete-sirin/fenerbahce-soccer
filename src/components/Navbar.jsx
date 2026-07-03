@@ -40,6 +40,14 @@ function Navbar() {
         >
           HABERLER
         </NavLink>
+        <NavLink
+          to="/fixture"
+          className={({ isActive }) =>
+            isActive ? "text-accent" : "text-text/70"
+          }
+        >
+          FİKSTÜR
+        </NavLink>
       </ul>
 
       <div>

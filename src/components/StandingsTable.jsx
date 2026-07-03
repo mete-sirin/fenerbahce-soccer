@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TeamLogo } from "./StandingsWidget";
+import TeamLogo from "./TeamLogo";
 
 export default function StandingsTable() {
   const FENERBAHCE_ID = 8695;

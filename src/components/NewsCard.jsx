@@ -6,6 +6,17 @@ const CATEGORY_META = {
   other: { label: "Gündem", bg: "#37527d", fg: "#f5f1e8" },
 };
 
+function formatNewsDate(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (isNaN(d)) return iso;
+  return new Intl.DateTimeFormat("tr-TR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(d);
+}
+
 function CategoryChip({ category }) {
   const meta = CATEGORY_META[category] ?? {
     label: category,
@@ -116,7 +127,7 @@ export default function NewsCard({ newsObj }) {
         >
           {source && <span style={{ color: "#ffd43b" }}>{source}</span>}
           {source && date && <span>·</span>}
-          {date && <span>{date}</span>}
+          {date && <span>{formatNewsDate(date)}</span>}
         </div>
       </div>
     </article>

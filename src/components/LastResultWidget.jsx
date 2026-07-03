@@ -1,5 +1,9 @@
-import { useEffect, useState } from "react";
-import fetchLastMatch from "../scripts/fetchLastMatch";
+import { useEffect, useRef, useState } from "react";
+import fetchMatches from "../scripts/fetchMatches";
+import { LEAGUES } from "../data/leagues";
+import { NavLink } from "react-router";
+
+const FENERBAHCE_ID = 8695;
 
 function formatMatchDate(iso) {
   const d = new Date(iso);
@@ -12,32 +16,58 @@ function formatMatchDate(iso) {
 }
 
 export default function LastResultWidget() {
-  const [matches, setMatches] = useState(() => {
-    const cached = localStorage.getItem("matches");
-    return cached ? JSON.parse(cached) : null;
+  const [matchesByLeague, setMatchesByLeague] = useState(() => {
+    try {
+      const cached = localStorage.getItem("fixtureMatches");
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      localStorage.removeItem("fixtureMatches");
+      return null;
+    }
   });
 
+  const attemptedFetch = useRef(false);
+
   useEffect(() => {
-    if (matches) return;
-    async function getFenerbahceMatches() {
-      const data = await fetchLastMatch();
-      if (!data) return;
-      localStorage.setItem("matches", JSON.stringify(data));
-      setMatches(data);
+    if (matchesByLeague && LEAGUES.every((l) => matchesByLeague[l.key])) return;
+    if (attemptedFetch.current) return;
+    attemptedFetch.current = true;
+    async function getMatches() {
+      const { data, errors } = await fetchMatches();
+      if (Object.keys(errors).length) console.error("fetchMatches:", errors);
+      if (Object.keys(data).length === 0) return;
+      localStorage.setItem("fixtureMatches", JSON.stringify(data));
+      setMatchesByLeague(data);
     }
-    getFenerbahceMatches();
-  }, [matches]);
+    getMatches();
+  }, [matchesByLeague]);
 
-  if (!matches) return null;
+  if (!matchesByLeague) return null;
 
-  const week = matches.length;
-  const match = matches.at(-1);
+  const finished = LEAGUES.flatMap((league) =>
+    (matchesByLeague[league.key] ?? [])
+      .filter(
+        (m) =>
+          (Number(m.home.id) === FENERBAHCE_ID ||
+            Number(m.away.id) === FENERBAHCE_ID) &&
+          m.status.finished,
+      )
+      .map((m) => ({ ...m, competition: league.label })),
+  );
+
+  if (finished.length === 0) return null;
+
+  const match = finished.reduce((latest, m) =>
+    new Date(m.status.utcTime) > new Date(latest.status.utcTime) ? m : latest,
+  );
   const imageUrlHome = `https://images.fotmob.com/image_resources/logo/teamlogo/${match.home.id}_large.png`;
-  const imageUrlAway = ` https://images.fotmob.com/image_resources/logo/teamlogo/${match.away.id}_large.png`;
+  const imageUrlAway = `https://images.fotmob.com/image_resources/logo/teamlogo/${match.away.id}_large.png`;
 
   return (
-    <div
-      className="w-89.5 overflow-hidden rounded-[14px] border border-white/12"
+    <NavLink
+      key={match.id}
+      to={`/match/${match.id}`}
+      className="w-89.5 cursor-pointer overflow-hidden rounded-[14px] border border-white/12"
       style={{ background: "#0f2547", fontFamily: "'Barlow',sans-serif" }}
     >
       <div className="flex items-center justify-between border-b border-white/11 px-4.5 py-3.5">
@@ -48,7 +78,7 @@ export default function LastResultWidget() {
             letterSpacing: ".16em",
           }}
         >
-          SON LİG MAÇI
+          SON MAÇ
         </span>
         <span
           className="text-text/55"
@@ -57,7 +87,8 @@ export default function LastResultWidget() {
             letterSpacing: ".06em",
           }}
         >
-          Süper Lig {week}. Hafta
+          {match.competition}
+          {match.tournament?.stage ? ` · ${match.tournament.stage}` : ""}
         </span>
       </div>
 
@@ -144,6 +175,6 @@ export default function LastResultWidget() {
           MAÇ SONU
         </span>
       </div>
-    </div>
+    </NavLink>
   );
 }

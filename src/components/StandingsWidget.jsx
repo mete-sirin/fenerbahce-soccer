@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import fetchStandings from "../scripts/fetchStandings";
 import { NavLink } from "react-router";
+import TeamLogo from "./TeamLogo";
 
 const FENERBAHCE_ID = 8695;
 
@@ -144,36 +145,3 @@ export default function StandingsWidget() {
     </div>
   );
 }
-
-export const TeamLogo = function ({ id, name }) {
-  const [failed, setFailed] = useState(false);
-  const url = `https://images.fotmob.com/image_resources/logo/teamlogo/${id}_large.png`;
-
-  if (failed) {
-    const init = name.slice(0, 3).toUpperCase();
-    return (
-      <span
-        className="inline-flex items-center justify-center rounded-full"
-        style={{
-          width: "20px",
-          height: "20px",
-          flex: "none",
-          background: "#1b3d6e",
-          font: "700 8px/1 'Barlow Condensed',sans-serif",
-          color: "#fff",
-        }}
-      >
-        {init}
-      </span>
-    );
-  }
-
-  return (
-    <img
-      src={url}
-      alt={name}
-      onError={() => setFailed(true)}
-      style={{ width: "20px", height: "20px", flex: "none" }}
-    />
-  );
-};

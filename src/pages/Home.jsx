@@ -42,7 +42,9 @@ export default function Home() {
           style={{ maxWidth: "1240px", padding: "0 40px 60px" }}
         >
           <div className="mb-4.5 flex items-center gap-3.5">
-            <span style={{ width: "48px", height: "2px", background: "#ffd43b" }} />
+            <span
+              style={{ width: "48px", height: "2px", background: "#ffd43b" }}
+            />
             <span
               className="uppercase"
               style={{
@@ -79,8 +81,8 @@ export default function Home() {
               textShadow: "0 1px 10px rgba(0,0,0,.7)",
             }}
           >
-            Tek yürek, tek ses. Sarı-lacivert dünyasındaki son gelişmeleri buradan
-            takip et.
+            Tek yürek, tek ses. Sarı-lacivert dünyasındaki son gelişmeleri
+            buradan takip et.
           </p>
           <div className="mt-7 flex gap-3.5">
             <Link
@@ -159,10 +161,25 @@ export default function Home() {
           style={{ gridTemplateColumns: "minmax(0,1fr) 358px" }}
         >
           <div>
-            {featured && <FeaturedNewsCard newsObj={featured} />}
+            {featured && (
+              <Link
+                to="/news/0"
+                className="block"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <FeaturedNewsCard newsObj={featured} />
+              </Link>
+            )}
             <div className="mt-5.5 grid grid-cols-2 gap-5.5">
               {rest.map((article, i) => (
-                <NewsCard key={article.url ?? i} newsObj={article} />
+                <Link
+                  key={article.url ?? i}
+                  to={`/news/${i + 1}`}
+                  className="block"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <NewsCard newsObj={article} />
+                </Link>
               ))}
             </div>
           </div>
