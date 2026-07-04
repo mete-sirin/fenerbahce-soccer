@@ -5,12 +5,11 @@ import LastResultWidget from "../components/LastResultWidget";
 import StandingsWidget from "../components/StandingsWidget";
 import NewsCard from "../components/NewsCard";
 import FeaturedNewsCard from "../components/FeaturedNewsCard";
-import newsData from "../data/news.json";
-import { useState } from "react";
+import useNews from "../hooks/useNews";
 
 export default function Home() {
-  const [news] = useState(newsData);
-  const [featured, ...rest] = news.articles;
+  const articles = useNews();
+  const [featured, ...rest] = articles;
   return (
     <div
       className="relative flex min-h-screen flex-col"

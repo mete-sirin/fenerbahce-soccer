@@ -18,7 +18,6 @@ export default function MatchBar({ match }) {
     res = fbScore > oppScore ? "G" : fbScore < oppScore ? "M" : "B";
   }
 
-  // there are no stats for a match that hasn't started, so don't link to it
   const clickable = !match.notStarted;
   const Wrapper = clickable ? Link : "div";
 
@@ -29,12 +28,16 @@ export default function MatchBar({ match }) {
         clickable ? "cursor-pointer transition-colors hover:bg-white/4.5" : ""
       }`}
       style={{
-        gridTemplateColumns: "76px 96px minmax(0,1fr) 118px minmax(0,1fr) 60px 34px",
+        gridTemplateColumns:
+          "76px 96px minmax(0,1fr) 118px minmax(0,1fr) 60px 34px",
       }}
     >
       <span className="flex flex-col items-center gap-0.5 border-r border-white/8 py-2">
         <span
-          style={{ font: "800 20px/1 'Barlow Condensed',sans-serif", color: "#f5f1e8" }}
+          style={{
+            font: "800 20px/1 'Barlow Condensed',sans-serif",
+            color: "#f5f1e8",
+          }}
         >
           {match.day}
         </span>
@@ -52,7 +55,10 @@ export default function MatchBar({ match }) {
 
       <span
         className="px-2 text-center"
-        style={{ font: "600 12px/1.3 'Barlow',sans-serif", color: "rgba(245,241,232,.55)" }}
+        style={{
+          font: "600 12px/1.3 'Barlow',sans-serif",
+          color: "rgba(245,241,232,.55)",
+        }}
       >
         {match.round}
       </span>
@@ -84,7 +90,10 @@ export default function MatchBar({ match }) {
           ) : (
             <>
               <span
-                style={{ font: "800 19px/1 'Barlow Condensed',sans-serif", color: "#f5f1e8" }}
+                style={{
+                  font: "800 19px/1 'Barlow Condensed',sans-serif",
+                  color: "#f5f1e8",
+                }}
               >
                 {match.home.score}
               </span>
@@ -97,7 +106,10 @@ export default function MatchBar({ match }) {
                 –
               </span>
               <span
-                style={{ font: "800 19px/1 'Barlow Condensed',sans-serif", color: "#f5f1e8" }}
+                style={{
+                  font: "800 19px/1 'Barlow Condensed',sans-serif",
+                  color: "#f5f1e8",
+                }}
               >
                 {match.away.score}
               </span>
@@ -133,7 +145,10 @@ export default function MatchBar({ match }) {
         )}
       </span>
 
-      <span className="flex justify-end" style={{ color: "rgba(245,241,232,.35)" }}>
+      <span
+        className="flex justify-end"
+        style={{ color: "rgba(245,241,232,.35)" }}
+      >
         {clickable && (
           <svg
             width="16"

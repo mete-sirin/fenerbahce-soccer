@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import NewsCard from "../components/NewsCard";
-import newsData from "../data/news.json";
+import useNews from "../hooks/useNews";
 
 const CATEGORY_LABELS = {
   transfer: "Transfer",
@@ -135,9 +135,10 @@ function FeaturedHero({ article, id }) {
 
 export default function News() {
   const [active, setActive] = useState("all");
-  // id = position in news.json; kept on each entry so filtering
+  const articles = useNews();
+  // id = position in the articles list; kept on each entry so filtering
   // doesn't break the /news/:newsId links
-  const indexed = newsData.articles.map((article, id) => ({ article, id }));
+  const indexed = articles.map((article, id) => ({ article, id }));
 
   const featured = indexed[0];
   const showFeatured = active === "all";

@@ -1,7 +1,7 @@
 import { NavLink, useParams } from "react-router";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import newsData from "../data/news.json";
+import useNews from "../hooks/useNews";
 
 const CATEGORY_LABELS = {
   transfer: "Transfer",
@@ -55,10 +55,9 @@ function Breadcrumb() {
 
 export default function Article() {
   const { newsId } = useParams();
-  // newsId is the article's position in news.json
-  const article = /^\d+$/.test(newsId)
-    ? newsData.articles[Number(newsId)]
-    : undefined;
+  const articles = useNews();
+  // newsId is the article's position in the articles list
+  const article = /^\d+$/.test(newsId) ? articles[Number(newsId)] : undefined;
 
   if (!article) {
     return (

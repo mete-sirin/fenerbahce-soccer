@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
+import { writeCache } from "./_lib/cache.js";
 
 const ArticleSchema = z.object({
   headline: z.string().describe("Short, factual headline"),
@@ -29,7 +30,7 @@ const NewsSchema = z.object({
   articles: z.array(ArticleSchema),
 });
 
-export default async function createNews() {
+async function createNews() {
   const client = new OpenAI();
   const response = await client.responses.create({
     model: "gpt-5",
@@ -61,8 +62,27 @@ CRITICAL: Only report what you can verify from a search result. If a field (date
     return null;
   }
 
-  console.log(JSON.stringify(response.output_parsed, null, 2));
   return response.output_parsed;
 }
 
-// createNews();
+export default async function handler(req, res) {
+  // Vercel cron sends Authorization: Bearer ${CRON_SECRET}; manual runs
+  // must supply the same header
+  if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) {
+    res.status(401).json({ error: "unauthorized" });
+    return;
+  }
+
+  try {
+    const news = await createNews();
+    if (!news?.articles?.length) {
+      res.status(502).json({ error: "news generation returned nothing" });
+      return;
+    }
+    await writeCache("news", news);
+    res.status(200).json({ ok: true, count: news.articles.length });
+  } catch (error) {
+    console.error(error);
+    res.status(502).json({ error: "news generation failed" });
+  }
+}
