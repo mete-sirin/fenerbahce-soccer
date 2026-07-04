@@ -34,7 +34,7 @@ async function createNews() {
   const client = new OpenAI();
   const response = await client.responses.create({
     model: "gpt-5",
-    max_output_tokens: 20000,
+    max_output_tokens: 32000,
     tools: [
       {
         type: "web_search",
@@ -51,23 +51,44 @@ Search the web — do NOT rely on memory, and do NOT invent anything.
    - "summary": a separate 2-3 sentence summary of the same item.
 3. Prefer the most recent items; ignore old or unconfirmed rumors.
 
-CRITICAL: Only report what you can verify from a search result. If a field (date, source, url, imageUrl) is not available, set it to null. Never fabricate sources, dates, or URLs.`,
+CRITICAL: Only report what you can verify from a search result. If a field (date, source, url, imageUrl) is not available, set it to null. Never fabricate sources, dates, or URLs.
+
+CRITICAL: Do not put citation markers, footnotes, or markdown links like ([site.com](url)) inside "headline", "article", or "summary". Those fields must be plain prose only — put the source URL in the "url" field instead.`,
     text: {
       format: zodTextFormat(NewsSchema, "news"),
     },
   });
 
   if (response.status === "incomplete") {
-    console.error("Response was cut off:", response.incomplete_details);
+    console.error(
+      `news generation incomplete (id=${response.id}):`,
+      JSON.stringify(response.incomplete_details),
+    );
     return null;
   }
 
-  return response.output_parsed;
+.
+  if (!response.output_text) {
+    console.error(
+      `news generation produced no output_text (id=${response.id}, status=${response.status})`,
+    );
+    return null;
+  }
+
+  const parsed = NewsSchema.safeParse(JSON.parse(response.output_text));
+  if (!parsed.success) {
+    console.error(
+      `news generation output failed schema validation (id=${response.id}):`,
+      parsed.error.message,
+    );
+    return null;
+  }
+
+  return parsed.data;
 }
 
 export default async function handler(req, res) {
-  // Vercel cron sends Authorization: Bearer ${CRON_SECRET}; manual runs
-  // must supply the same header
+
   if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) {
     res.status(401).json({ error: "unauthorized" });
     return;
