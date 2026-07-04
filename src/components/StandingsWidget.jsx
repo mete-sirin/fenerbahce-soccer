@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import fetchStandings from "../scripts/fetchStandings";
 import { NavLink } from "react-router";
 import TeamLogo from "./TeamLogo";
+import Spinner from "./Spinner";
 
 const FENERBAHCE_ID = 8695;
 
@@ -31,7 +32,16 @@ export default function StandingsWidget() {
     getStandings();
   }, [standings]);
 
-  if (!standings) return null;
+  if (!standings) {
+    return (
+      <div
+        className="flex w-89.5 items-center justify-center rounded-[14px] border border-white/12 py-10"
+        style={{ background: "#0f2547" }}
+      >
+        <Spinner />
+      </div>
+    );
+  }
 
   const table = standings.filter((obj) => {
     return obj.idx <= 7;

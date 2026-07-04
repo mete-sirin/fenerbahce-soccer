@@ -1,7 +1,7 @@
 export default async function fetchMatches() {
   const urlMainLeague =
     "https://free-api-live-football-data.p.rapidapi.com/football-get-all-matches-by-league?leagueid=71";
-  const urlEuropaLeauge =
+  const urlEuropaLeague =
     "https://free-api-live-football-data.p.rapidapi.com/football-get-all-matches-by-league?leagueid=73";
   const urlNationalCup =
     "https://free-api-live-football-data.p.rapidapi.com/football-get-all-matches-by-league?leagueid=151";
@@ -17,7 +17,7 @@ export default async function fetchMatches() {
 
   const [MainLeagueRes, EuropaLeagueRes, NationalCupRes] = await Promise.all([
     fetch(urlMainLeague, options),
-    fetch(urlEuropaLeauge, options),
+    fetch(urlEuropaLeague, options),
     fetch(urlNationalCup, options),
   ]);
 
@@ -34,8 +34,8 @@ export default async function fetchMatches() {
     MainLeague.status === "fulfilled" &&
     MainLeague.value.status === "success"
   )
-    data.MainLeauge = MainLeague.value.response.matches; //typo fix it later fix the wiring with it as well
-  else errors.MainLeauge = MainLeague.reason ?? MainLeague.value;
+    data.MainLeague = MainLeague.value.response.matches;
+  else errors.MainLeague = MainLeague.reason ?? MainLeague.value;
 
   if (
     EuropaLeague.status === "fulfilled" &&

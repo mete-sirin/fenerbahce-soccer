@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import fetchMatches from "../scripts/fetchMatches";
+import Spinner from "./Spinner";
 import { LEAGUES } from "../data/leagues";
 import { NavLink } from "react-router";
 
@@ -16,6 +17,7 @@ function formatMatchDate(iso) {
 }
 
 export default function LastResultWidget() {
+  const [onHover, setOnHover] = useState(false);
   const [matchesByLeague, setMatchesByLeague] = useState(() => {
     try {
       const cached = localStorage.getItem("fixtureMatches");
@@ -42,7 +44,16 @@ export default function LastResultWidget() {
     getMatches();
   }, [matchesByLeague]);
 
-  if (!matchesByLeague) return null;
+  if (!matchesByLeague) {
+    return (
+      <div
+        className="flex w-89.5 items-center justify-center rounded-[14px] border border-white/12 py-10"
+        style={{ background: "#0f2547" }}
+      >
+        <Spinner />
+      </div>
+    );
+  }
 
   const finished = LEAGUES.flatMap((league) =>
     (matchesByLeague[league.key] ?? [])
@@ -65,9 +76,11 @@ export default function LastResultWidget() {
 
   return (
     <NavLink
+      onPointerEnter={() => setOnHover(true)}
+      onPointerLeave={() => setOnHover(false)}
       key={match.id}
       to={`/match/${match.id}`}
-      className="w-89.5 cursor-pointer overflow-hidden rounded-[14px] border border-white/12"
+      className={`w-89.5 cursor-pointer overflow-hidden rounded-[14px] ${onHover ? "border-accent border-[0.5px]" : "border border-white/12"} `}
       style={{ background: "#0f2547", fontFamily: "'Barlow',sans-serif" }}
     >
       <div className="flex items-center justify-between border-b border-white/11 px-4.5 py-3.5">

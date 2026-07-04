@@ -3,7 +3,7 @@ export default function PositionSelector({ position, setPosition }) {
     setPosition(key);
   }
   const zones = [
-    { key: "attackers", label: "Forvet", top: "12px", height: "80px" },
+    { key: "attackers", label: "Hücum", top: "12px", height: "80px" },
     { key: "midfielders", label: "Orta Saha", top: "96px", height: "94px" },
     { key: "defenders", label: "Defans", top: "194px", height: "94px" },
     { key: "keepers", label: "Kaleci", top: "292px", height: "76px" },

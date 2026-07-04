@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import fetchSquad from "../scripts/fetchSquad";
 import PlayerCard from "../components/PlayerCard";
+import Spinner from "../components/Spinner";
 import Navbar from "../components/Navbar";
 import PositionSelector from "../components/PositionSelector";
 import Footer from "../components/Footer";
@@ -47,7 +48,9 @@ export default function Squad() {
 
       <div className="flex flex-1 items-start">
         {!squad ? (
-          <p className="text-text p-10 text-center">Loading…</p>
+          <div className="flex flex-1 items-center justify-center self-stretch py-24">
+            <Spinner />
+          </div>
         ) : (
           <ul
             className="grid flex-1 justify-center gap-6 p-8 pb-16 lg:ml-72"

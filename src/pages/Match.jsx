@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import TeamLogo from "../components/TeamLogo";
 import { useParams } from "react-router";
 import fetchMatchDetails from "../scripts/fetchMatchDetails";
+import { LEAGUES } from "../data/leagues";
 import { useState, useEffect } from "react";
 
 const STAT_TR = {
@@ -54,6 +55,34 @@ const SECTION_TR = {
   duels: "İkili Mücadele",
   discipline: "Disiplin",
 };
+
+// the match-details API doesn't return the kickoff date or the score, so we
+// look them up from the fixture list already cached by the fixture/home pages
+function findCachedMatch(matchId) {
+  try {
+    const cached = JSON.parse(localStorage.getItem("fixtureMatches")) ?? {};
+    for (const [leagueKey, matches] of Object.entries(cached)) {
+      const match = matches.find((m) => String(m.id) === String(matchId));
+      if (match) return { ...match, leagueKey };
+    }
+  } catch {
+    localStorage.removeItem("fixtureMatches");
+  }
+  return null;
+}
+
+function formatMatchDate(iso) {
+  const d = new Date(iso);
+  if (isNaN(d)) return "";
+  return new Intl.DateTimeFormat("tr-TR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(d);
+}
 
 function decorate(item) {
   const hl = item.highlighted;
@@ -125,22 +154,36 @@ function StatRow({ row, small }) {
 
 export default function Match() {
   const { matchId } = useParams();
+  const cachedMatch = findCachedMatch(matchId);
 
-  const [currentMatch, setCurrentMatch] = useState("");
+  // only the last visited match is cached, so a reload costs no API calls
+  // but opening a different match replaces it
+  const [currentMatch, setCurrentMatch] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("currentMatch"));
+    } catch {
+      localStorage.removeItem("currentMatch");
+      return null;
+    }
+  });
+
+  const isCurrent =
+    currentMatch && String(currentMatch.matchId) === String(matchId);
 
   useEffect(() => {
-    if (currentMatch) return;
-    async function getMatchDetails(matchId) {
+    if (isCurrent) return;
+    async function getMatchDetails() {
       const data = await fetchMatchDetails(matchId);
       if (!data) return;
-      localStorage.setItem("currentMatch", JSON.stringify(data));
-      setCurrentMatch(data);
+      const record = { ...data, matchId };
+      localStorage.setItem("currentMatch", JSON.stringify(record));
+      setCurrentMatch(record);
     }
 
-    getMatchDetails(matchId);
-  }, [currentMatch, matchId]);
+    getMatchDetails();
+  }, [isCurrent, matchId]);
 
-  if (!currentMatch) {
+  if (!isCurrent) {
     return (
       <div className="bg-bg flex min-h-screen flex-col">
         <Navbar />
@@ -152,10 +195,20 @@ export default function Match() {
     );
   }
 
-  const groups = currentMatch.stats.stats;
+  const scoreFor = (teamId) =>
+    [cachedMatch?.home, cachedMatch?.away].find(
+      (t) => Number(t?.id) === Number(teamId),
+    )?.score ?? "–";
+
+  const competition = LEAGUES.find(
+    (l) => l.key === cachedMatch?.leagueKey,
+  )?.label;
+
+  const groups = currentMatch.stats?.stats ?? [];
   const top = groups.find((g) => g.key === "top_stats");
-  const poss = top.stats.find((s) => s.type === "graph");
-  const topStats = top.stats.filter((s) => s.type === "text").map(decorate);
+  const poss = top?.stats.find((s) => s.type === "graph");
+  const topStats =
+    top?.stats.filter((s) => s.type === "text").map(decorate) ?? [];
   const sections = groups
     .filter((g) => g.key !== "top_stats")
     .map((g) => ({
@@ -178,34 +231,38 @@ export default function Match() {
       <div style={{ paddingBottom: "60px" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "44px 40px 0" }}>
           <div style={card}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "14px 22px",
-                borderBottom: "1px solid rgba(255,255,255,.1)",
-              }}
-            >
-              <span
+            {competition && (
+              <div
                 style={{
-                  font: "700 13px/1 'Barlow',sans-serif",
-                  letterSpacing: ".16em",
-                  textTransform: "uppercase",
-                  color: "#ffd43b",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "14px 22px",
+                  borderBottom: "1px solid rgba(255,255,255,.1)",
                 }}
               >
-                Süper Lig
-              </span>
-              <span
-                style={{
-                  font: "600 12px/1 'Barlow',sans-serif",
-                  color: "rgba(245,241,232,.55)",
-                }}
-              >
-                Ülker Stadyumu
-              </span>
-            </div>
+                <span
+                  style={{
+                    font: "700 13px/1 'Barlow',sans-serif",
+                    letterSpacing: ".16em",
+                    textTransform: "uppercase",
+                    color: "#ffd43b",
+                  }}
+                >
+                  {competition}
+                </span>
+                {cachedMatch.tournament?.stage && (
+                  <span
+                    style={{
+                      font: "600 12px/1 'Barlow',sans-serif",
+                      color: "rgba(245,241,232,.55)",
+                    }}
+                  >
+                    {cachedMatch.tournament.stage}
+                  </span>
+                )}
+              </div>
+            )}
             <div
               style={{
                 display: "grid",
@@ -254,7 +311,7 @@ export default function Match() {
                       color: "#ffd43b",
                     }}
                   >
-                    2
+                    {scoreFor(currentMatch.sidesObject.homeTeam.id)}
                   </span>
                   <span
                     style={{
@@ -270,19 +327,31 @@ export default function Match() {
                       color: "#f5f1e8",
                     }}
                   >
-                    1
+                    {scoreFor(currentMatch.sidesObject.awayteam.id)}
                   </span>
                 </div>
-                <span
-                  style={{
-                    font: "700 11px/1 'Barlow',sans-serif",
-                    letterSpacing: ".18em",
-                    textTransform: "uppercase",
-                    color: "rgba(245,241,232,.5)",
-                  }}
-                >
-                  Maç Sonu
-                </span>
+                {cachedMatch?.status.finished && (
+                  <span
+                    style={{
+                      font: "700 11px/1 'Barlow',sans-serif",
+                      letterSpacing: ".18em",
+                      textTransform: "uppercase",
+                      color: "rgba(245,241,232,.5)",
+                    }}
+                  >
+                    Maç Sonu
+                  </span>
+                )}
+                {cachedMatch && (
+                  <span
+                    style={{
+                      font: "600 13px/1.2 'Barlow',sans-serif",
+                      color: "rgba(245,241,232,.65)",
+                    }}
+                  >
+                    {formatMatchDate(cachedMatch.status.utcTime)}
+                  </span>
+                )}
               </div>
               <div
                 style={{
@@ -312,6 +381,7 @@ export default function Match() {
           </div>
         </div>
 
+        {poss && (
         <div style={{ maxWidth: "860px", margin: "22px auto 0", padding: "0 40px" }}>
           <div style={{ ...card, padding: "22px 26px" }}>
             <div
@@ -375,7 +445,9 @@ export default function Match() {
             </div>
           </div>
         </div>
+        )}
 
+        {topStats.length > 0 && (
         <div style={{ maxWidth: "860px", margin: "22px auto 0", padding: "0 40px" }}>
           <div style={card}>
             <div
@@ -401,6 +473,7 @@ export default function Match() {
             ))}
           </div>
         </div>
+        )}
 
         <div
           style={{

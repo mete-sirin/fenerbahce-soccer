@@ -18,10 +18,16 @@ export default function MatchBar({ match }) {
     res = fbScore > oppScore ? "G" : fbScore < oppScore ? "M" : "B";
   }
 
+  // there are no stats for a match that hasn't started, so don't link to it
+  const clickable = !match.notStarted;
+  const Wrapper = clickable ? Link : "div";
+
   return (
-    <Link
-      to={`/match/${match.id}`}
-      className="grid h-16.5 items-center border-t border-white/5 pr-5 transition-colors hover:bg-white/4.5"
+    <Wrapper
+      {...(clickable && { to: `/match/${match.id}` })}
+      className={`grid h-16.5 items-center border-t border-white/5 pr-5 ${
+        clickable ? "cursor-pointer transition-colors hover:bg-white/4.5" : ""
+      }`}
       style={{
         gridTemplateColumns: "76px 96px minmax(0,1fr) 118px minmax(0,1fr) 60px 34px",
       }}
@@ -128,19 +134,21 @@ export default function MatchBar({ match }) {
       </span>
 
       <span className="flex justify-end" style={{ color: "rgba(245,241,232,.35)" }}>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M9 18l6-6-6-6" />
-        </svg>
+        {clickable && (
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        )}
       </span>
-    </Link>
+    </Wrapper>
   );
 }

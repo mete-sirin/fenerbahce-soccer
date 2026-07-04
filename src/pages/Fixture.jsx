@@ -194,12 +194,6 @@ export default function Fixture() {
                   {item.label}
                 </span>
               ))}
-              <span
-                className="ml-auto"
-                style={{ color: "rgba(245,241,232,.4)" }}
-              >
-                Maça tıklayınca detay sayfası açılır
-              </span>
             </div>
           </>
         )}

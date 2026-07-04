@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import fetchStandings from "../scripts/fetchStandings";
 import TeamLogo from "./TeamLogo";
+import Spinner from "./Spinner";
 
 export default function StandingsTable() {
   const FENERBAHCE_ID = 8695;
@@ -14,7 +16,28 @@ export default function StandingsTable() {
     }
   });
 
-  if (!standings) return null;
+  useEffect(() => {
+    if (standings) return;
+    async function getStandings() {
+      try {
+        const data = await fetchStandings();
+        if (!data) return;
+        localStorage.setItem("standings", JSON.stringify(data));
+        setStandings(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getStandings();
+  }, [standings]);
+
+  if (!standings) {
+    return (
+      <div className="flex w-full justify-center px-6 py-32">
+        <Spinner />
+      </div>
+    );
+  }
 
   const zoneColor = (pos) => {
     if (pos <= 2) return "#3bb273";
@@ -37,7 +60,7 @@ export default function StandingsTable() {
       <div className="w-full max-w-275 overflow-hidden rounded-2xl border border-white/10 bg-[#0f2547] shadow-[0_26px_56px_-30px_rgba(0,0,0,0.75)]">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="border-b border-white/10 bg-white/[0.03] text-[11px] font-bold tracking-[0.1em] text-[#f5f1e8]/55 uppercase">
+            <tr className="border-b border-white/10 bg-white/3 text-[11px] font-bold tracking-widest text-text/55 uppercase">
               <th className="w-12 py-3.5 text-center">#</th>
               <th className="py-3.5 pl-2 text-left">Takımlar</th>
               <th className="w-10 py-3.5 text-center">O</th>
@@ -47,7 +70,7 @@ export default function StandingsTable() {
               <th className="w-12 py-3.5 text-center">AG</th>
               <th className="w-12 py-3.5 text-center">YG</th>
               <th className="w-14 py-3.5 text-center">AV</th>
-              <th className="w-16 py-3.5 text-center text-[#ffd43b]">P</th>
+              <th className="w-16 py-3.5 text-center text-accent">P</th>
             </tr>
           </thead>
           <tbody>
@@ -58,10 +81,10 @@ export default function StandingsTable() {
               return (
                 <tr
                   key={team.id}
-                  className={`group h-[54px] border-t border-white/5 transition-colors ${
+                  className={`group h-13.5 border-t border-white/5 transition-colors ${
                     isFB
-                      ? "bg-[#ffd43b]/10 hover:bg-[#ffd43b]/15"
-                      : "hover:bg-white/[0.04]"
+                      ? "bg-accent/10 hover:bg-accent/15"
+                      : "hover:bg-white/4"
                   }`}
                 >
                   <td className="relative text-center">
@@ -71,7 +94,7 @@ export default function StandingsTable() {
                     />
                     <span
                       className={`font-[Barlow_Condensed,sans-serif] text-base font-bold ${
-                        isFB ? "text-[#ffd43b]" : "text-[#f5f1e8]/60"
+                        isFB ? "text-accent" : "text-text/60"
                       }`}
                     >
                       {team.idx}
@@ -82,11 +105,11 @@ export default function StandingsTable() {
                     <div className="flex items-center gap-3">
                       <TeamLogo
                         id={team.id}
-                        className="h-[26px] w-[26px] shrink-0"
+                        className="h-6.5 w-6.5 shrink-0"
                       />
                       <span
                         className={`truncate text-[15px] font-semibold ${
-                          isFB ? "text-[#ffd43b]" : "text-[#f5f1e8]"
+                          isFB ? "text-accent" : "text-text"
                         }`}
                       >
                         {team.name}
@@ -94,40 +117,40 @@ export default function StandingsTable() {
                     </div>
                   </td>
 
-                  <td className="text-center text-sm text-[#f5f1e8]/70">
+                  <td className="text-center text-sm text-text/70">
                     {team.played}
                   </td>
-                  <td className="text-center text-sm text-[#f5f1e8]/70">
+                  <td className="text-center text-sm text-text/70">
                     {team.wins}
                   </td>
-                  <td className="text-center text-sm text-[#f5f1e8]/70">
+                  <td className="text-center text-sm text-text/70">
                     {team.draws}
                   </td>
-                  <td className="text-center text-sm text-[#f5f1e8]/70">
+                  <td className="text-center text-sm text-text/70">
                     {team.losses}
                   </td>
-                  <td className="text-center text-sm text-[#f5f1e8]/70">
+                  <td className="text-center text-sm text-text/70">
                     {goalsScored}
                   </td>
-                  <td className="text-center text-sm text-[#f5f1e8]/70">
+                  <td className="text-center text-sm text-text/70">
                     {goalsConceded}
                   </td>
                   <td
                     className={`text-center text-sm font-semibold ${
                       isFB
-                        ? "text-[#ffd43b]"
+                        ? "text-accent"
                         : gd > 0
                           ? "text-[#7fd6a8]"
                           : gd < 0
                             ? "text-[#e89089]"
-                            : "text-[#f5f1e8]/70"
+                            : "text-text/70"
                     }`}
                   >
                     {gd > 0 ? `+${gd}` : gd}
                   </td>
                   <td
                     className={`text-center font-[Barlow_Condensed,sans-serif] text-[17px] font-bold ${
-                      isFB ? "text-[#ffd43b]" : "text-[#f5f1e8]"
+                      isFB ? "text-accent" : "text-text"
                     }`}
                   >
                     {team.pts}

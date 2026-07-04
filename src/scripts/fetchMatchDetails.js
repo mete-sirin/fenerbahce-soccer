@@ -1,6 +1,6 @@
 export default async function fetchMatchDetails(id) {
-  const url1 = `https://free-api-live-football-data.p.rapidapi.com/football-get-match-all-stats?eventid=${id}`;
-  const url2 = `https://free-api-live-football-data.p.rapidapi.com/football-get-match-detail?eventid=${id}`;
+  const url1 = `https://free-api-live-football-data.p.rapidapi.com/football-get-match-all-stats?eventid=${id}`; //for stats
+  const url2 = `https://free-api-live-football-data.p.rapidapi.com/football-get-match-detail?eventid=${id}`; // to figure out sides amınakoyduğumun api'yı 0-1 demiş ev-deplasman hangi takım bilmyom ki
   const options = {
     method: "GET",
     headers: {
