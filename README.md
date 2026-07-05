@@ -1,5 +1,7 @@
 # fenerbahce-soccer
 
+my api account is suspended so the website doesn't really work anymore.
+
 A fan-built website to track Fenerbahçe S.K. and learn more about web development in the process.  — includes squad info, 
 fixtures, and league standings. Not finished yet.
 
