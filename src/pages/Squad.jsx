@@ -7,6 +7,13 @@ import Navbar from "../components/Navbar";
 import PositionSelector from "../components/PositionSelector";
 import Footer from "../components/Footer";
 
+const POSITION_LABELS = {
+  attackers: "Hücum",
+  midfielders: "Orta Saha",
+  defenders: "Defans",
+  keepers: "Kaleci",
+};
+
 export default function Squad() {
   const positionsArr = ["attackers", "midfielders", "defenders", "keepers"];
   const [position, setPosition] = useState(positionsArr.at(0));
@@ -46,6 +53,25 @@ export default function Squad() {
         <PositionSelector position={position} setPosition={setPosition} />
       </div>
 
+      <div className="flex flex-wrap justify-center gap-2.5 px-4 pt-6 lg:hidden">
+        {positionsArr.map((key) => {
+          const selected = key === position;
+          return (
+            <button
+              key={key}
+              onClick={() => setPosition(key)}
+              className={`inline-flex h-10 cursor-pointer items-center rounded-full border px-4 font-sans text-sm font-bold tracking-wider uppercase transition-colors ${
+                selected
+                  ? "border-accent bg-accent text-bg"
+                  : "border-text/25 text-text/80 hover:border-accent"
+              }`}
+            >
+              {POSITION_LABELS[key]}
+            </button>
+          );
+        })}
+      </div>
+
       <div className="flex flex-1 items-start">
         {!squad ? (
           <div className="flex flex-1 items-center justify-center self-stretch py-24">
@@ -53,7 +79,7 @@ export default function Squad() {
           </div>
         ) : (
           <ul
-            className="grid flex-1 justify-center gap-6 p-8 pb-16 lg:ml-72"
+            className="grid flex-1 justify-center gap-6 px-4 py-8 pb-16 lg:ml-72 lg:p-8 lg:pb-16"
             style={{
               gridTemplateColumns: "repeat(auto-fit, 260px)",
             }}

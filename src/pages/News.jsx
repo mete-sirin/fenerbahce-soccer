@@ -38,10 +38,8 @@ function FeaturedHero({ article, id }) {
   return (
     <NavLink
       to={`/news/${id}`}
-      className="hover:border-accent/45 grid overflow-hidden border border-white/12 transition-colors duration-180"
+      className="hover:border-accent/45 grid overflow-hidden border border-white/12 transition-colors duration-180 md:min-h-95 md:grid-cols-[1.05fr_1fr]"
       style={{
-        gridTemplateColumns: "1.05fr 1fr",
-        minHeight: "380px",
         borderRadius: "16px",
         boxShadow: "0 26px 56px -30px rgba(0,0,0,.75)",
         background: "#0f2547",
@@ -50,8 +48,7 @@ function FeaturedHero({ article, id }) {
       }}
     >
       <span
-        className="flex flex-col justify-center"
-        style={{ gap: "14px", padding: "36px 40px" }}
+        className="flex flex-col justify-center gap-3.5 p-6 md:px-10 md:py-9"
       >
         <span className="flex items-center" style={{ gap: "12px" }}>
           <span
@@ -80,9 +77,9 @@ function FeaturedHero({ article, id }) {
           </span>
         </span>
         <span
-          className="uppercase"
+          className="text-[28px] leading-[1.05] font-extrabold uppercase md:text-[40px]"
           style={{
-            font: "800 40px/1.05 'Barlow Condensed',sans-serif",
+            fontFamily: "'Barlow Condensed',sans-serif",
             letterSpacing: ".005em",
             color: "#f5f1e8",
           }}
@@ -99,7 +96,7 @@ function FeaturedHero({ article, id }) {
         </span>
       </span>
 
-      <span className="relative overflow-hidden">
+      <span className="relative order-first aspect-video overflow-hidden md:order-0 md:aspect-auto">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -155,7 +152,7 @@ export default function News() {
       <Navbar />
 
       <div className="w-full flex-1" style={{ paddingBottom: "70px" }}>
-      <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "50px 40px 0" }}>
+      <div className="mx-auto max-w-310 px-5 pt-9 md:px-10 md:pt-12.5">
         <div className="mb-4 flex items-center gap-3.5">
           <span className="bg-accent h-0.5 w-12" />
           <span
@@ -169,14 +166,14 @@ export default function News() {
           </span>
         </div>
         <h1
-          className="text-text m-0 uppercase"
-          style={{ font: "800 56px/.92 'Barlow Condensed',sans-serif" }}
+          className="text-text m-0 text-[40px] leading-[.92] font-extrabold uppercase md:text-[56px]"
+          style={{ fontFamily: "'Barlow Condensed',sans-serif" }}
         >
           Haberler
         </h1>
       </div>
 
-      <div style={{ maxWidth: "1240px", margin: "28px auto 0", padding: "0 40px" }}>
+      <div className="mx-auto mt-7 max-w-310 px-5 md:px-10">
         <div className="flex flex-wrap gap-2.5">
           {FILTERS.map((f) => {
             const selected = f.key === active;
@@ -204,22 +201,12 @@ export default function News() {
       </div>
 
       {showFeatured && featured && (
-        <div
-          style={{ maxWidth: "1240px", margin: "26px auto 0", padding: "0 40px" }}
-        >
+        <div className="mx-auto mt-6.5 max-w-310 px-5 md:px-10">
           <FeaturedHero article={featured.article} id={featured.id} />
         </div>
       )}
 
-      <div
-        className="grid grid-cols-3 items-start"
-        style={{
-          maxWidth: "1240px",
-          margin: "26px auto 0",
-          padding: "0 40px",
-          gap: "22px",
-        }}
-      >
+      <div className="mx-auto mt-6.5 grid max-w-310 grid-cols-1 items-start gap-5.5 px-5 sm:grid-cols-2 md:px-10 lg:grid-cols-3">
         {visible.map(({ article, id }) => (
           <NavLink
             key={id}

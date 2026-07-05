@@ -24,13 +24,9 @@ export default function MatchBar({ match }) {
   return (
     <Wrapper
       {...(clickable && { to: `/match/${match.id}` })}
-      className={`grid h-16.5 items-center border-t border-white/5 pr-5 ${
+      className={`grid h-16.5 grid-cols-[48px_minmax(0,1fr)_86px_minmax(0,1fr)_22px] items-center border-t border-white/5 pr-2 md:grid-cols-[76px_96px_minmax(0,1fr)_118px_minmax(0,1fr)_60px_34px] md:pr-5 ${
         clickable ? "cursor-pointer transition-colors hover:bg-white/4.5" : ""
       }`}
-      style={{
-        gridTemplateColumns:
-          "76px 96px minmax(0,1fr) 118px minmax(0,1fr) 60px 34px",
-      }}
     >
       <span className="flex flex-col items-center gap-0.5 border-r border-white/8 py-2">
         <span
@@ -54,7 +50,7 @@ export default function MatchBar({ match }) {
       </span>
 
       <span
-        className="px-2 text-center"
+        className="hidden px-2 text-center md:block"
         style={{
           font: "600 12px/1.3 'Barlow',sans-serif",
           color: "rgba(245,241,232,.55)",
@@ -63,7 +59,7 @@ export default function MatchBar({ match }) {
         {match.round}
       </span>
 
-      <span className="flex min-w-0 items-center justify-end gap-2.75">
+      <span className="flex min-w-0 items-center justify-end gap-1.5 md:gap-2.75">
         <span
           className="truncate"
           style={{
@@ -77,7 +73,7 @@ export default function MatchBar({ match }) {
       </span>
 
       <span className="flex items-center justify-center">
-        <span className="inline-flex items-center gap-1.75 rounded-lg border border-white/10 bg-white/6 px-3.5 py-1.75">
+        <span className="inline-flex items-center gap-1.75 rounded-lg border border-white/10 bg-white/6 px-2 py-1.75 md:px-3.5">
           {match.notStarted ? (
             <span
               style={{
@@ -118,7 +114,7 @@ export default function MatchBar({ match }) {
         </span>
       </span>
 
-      <span className="flex min-w-0 items-center justify-start gap-2.75">
+      <span className="flex min-w-0 items-center justify-start gap-1.5 md:gap-2.75">
         <TeamLogo id={match.away.id} name={match.away.name} size={28} />
         <span
           className="truncate"
@@ -131,7 +127,7 @@ export default function MatchBar({ match }) {
         </span>
       </span>
 
-      <span className="flex justify-center">
+      <span className="hidden justify-center md:flex">
         {res && (
           <span
             className="inline-flex h-7 w-7 items-center justify-center rounded-full"

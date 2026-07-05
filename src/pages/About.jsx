@@ -22,7 +22,7 @@ export default function About() {
 
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center">
           <span className="text-accent mb-7 flex items-center gap-3.5">
-            <span className="bg-accent h-0.5 w-12" />
+            <span className="bg-accent hidden h-0.5 w-12 sm:block" />
             <span
               className="uppercase"
               style={{
@@ -32,7 +32,7 @@ export default function About() {
             >
               Fenerbahçe S.K. · 1907'den Bugüne
             </span>
-            <span className="bg-accent h-0.5 w-12" />
+            <span className="bg-accent hidden h-0.5 w-12 sm:block" />
           </span>
 
           <h1
@@ -66,20 +66,20 @@ export default function About() {
       </div>
 
       <div className="bg-bg relative flex items-center justify-center overflow-hidden">
-        <div className="relative flex h-screen w-full max-w-7xl items-center justify-center gap-24 px-16">
-          <div className="border-accent shrink-0 rounded-sm border p-3">
+        <div className="relative flex w-full max-w-7xl flex-col items-center justify-center gap-12 px-6 py-20 lg:h-screen lg:flex-row lg:gap-24 lg:px-16 lg:py-0">
+          <div className="border-accent w-full max-w-105 shrink-0 rounded-sm border p-3 lg:w-auto">
             <img
               src="trophy.jpeg"
               alt="Player Lifting Trophy"
-              className="h-85 w-105 object-cover"
+              className="h-auto w-full object-cover lg:h-85 lg:w-105"
             />
           </div>
 
           <div className="relative flex max-w-2xl flex-col gap-10">
-            <span className="text-text/5 pointer-events-none absolute -top-24 left-0 z-0 text-[20rem] leading-none font-extrabold select-none">
+            <span className="text-text/5 pointer-events-none absolute -top-24 left-0 z-0 text-[10rem] leading-none font-extrabold select-none lg:text-[20rem]">
               1907
             </span>
-            <h2 className="relative z-10 flex flex-col text-5xl font-extrabold tracking-wide">
+            <h2 className="relative z-10 flex flex-col text-4xl font-extrabold tracking-wide md:text-5xl">
               <span className="text-text">BİR</span>
               <span className="text-accent">EFSANENİN</span>
               <span className="text-text">DOĞUŞU</span>
@@ -91,7 +91,7 @@ export default function About() {
               taşımış; bu köklü gelenek bugün de milyonlarca taraftarın
               yüreğinde yaşamaya devam ediyor.
             </p>
-            <div className="relative z-10 flex gap-16">
+            <div className="relative z-10 flex flex-wrap gap-8 md:gap-16">
               <div className="flex flex-col">
                 <span className="text-accent text-4xl font-bold">28x</span>
                 <span className="text-text text-sm">
@@ -135,12 +135,12 @@ export default function About() {
         </div>
 
         <div className="mt-16 flex w-full max-w-5xl flex-col items-center gap-16 md:flex-row md:items-center">
-          <div className="border-accent shrink-0 rounded-sm border p-3">
+          <div className="border-accent w-full max-w-100 shrink-0 rounded-sm border p-3 md:w-auto">
             <div className="overflow-hidden rounded-sm">
               <img
                 src="alex.jpg"
                 alt="Alex de Souza"
-                className="h-110 w-100 object-cover object-top blur-[0.4px] brightness-95 contrast-105"
+                className="h-auto w-full object-cover object-top blur-[0.4px] brightness-95 contrast-105 md:h-110 md:w-100"
               />
             </div>
           </div>
@@ -149,7 +149,9 @@ export default function About() {
             <span className="text-accent text-sm font-bold tracking-widest">
               2004 – 2012
             </span>
-            <h3 className="text-text text-5xl font-extrabold">Alex de Souza</h3>
+            <h3 className="text-text text-4xl font-extrabold md:text-5xl">
+              Alex de Souza
+            </h3>
             <span className="text-text/60 text-lg">Orta Saha</span>
             <span className="text-accent text-3xl font-extrabold">164 Gol</span>
             <div className="text-text flex flex-col gap-4 text-lg leading-relaxed">

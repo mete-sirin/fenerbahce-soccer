@@ -47,7 +47,7 @@ export default function LastResultWidget() {
   if (!matchesByLeague) {
     return (
       <div
-        className="flex w-89.5 items-center justify-center rounded-[14px] border border-white/12 py-10"
+        className="flex w-full items-center justify-center rounded-[14px] border border-white/12 py-10 lg:w-89.5"
         style={{ background: "#0f2547" }}
       >
         <Spinner />
@@ -80,7 +80,7 @@ export default function LastResultWidget() {
       onPointerLeave={() => setOnHover(false)}
       key={match.id}
       to={`/match/${match.id}`}
-      className={`w-89.5 cursor-pointer overflow-hidden rounded-[14px] ${onHover ? "border-accent border-[0.5px]" : "border border-white/12"} `}
+      className={`w-full cursor-pointer overflow-hidden rounded-[14px] lg:w-89.5 ${onHover ? "border-accent border-[0.5px]" : "border border-white/12"} `}
       style={{ background: "#0f2547", fontFamily: "'Barlow',sans-serif" }}
     >
       <div className="flex items-center justify-between border-b border-white/11 px-4.5 py-3.5">

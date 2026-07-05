@@ -89,7 +89,7 @@ export default function Fixture() {
     <div className="bg-bg min-h-screen">
       <Navbar />
 
-      <div className="mx-auto max-w-245 px-10 pt-12">
+      <div className="mx-auto max-w-245 px-5 pt-9 md:px-10 md:pt-12">
         <div className="mb-4 flex items-center gap-3.5">
           <span className="bg-accent h-0.5 w-12" />
           <span
@@ -103,14 +103,14 @@ export default function Fixture() {
           </span>
         </div>
         <h1
-          className="text-text m-0 uppercase"
-          style={{ font: "800 56px/.92 'Barlow Condensed',sans-serif" }}
+          className="text-text m-0 text-[40px] leading-[.92] font-extrabold uppercase md:text-[56px]"
+          style={{ fontFamily: "'Barlow Condensed',sans-serif" }}
         >
           Fikstür
         </h1>
       </div>
 
-      <div className="mx-auto mt-7 max-w-245 px-10">
+      <div className="mx-auto mt-7 max-w-245 px-5 md:px-10">
         <div className="flex flex-wrap gap-2.5">
           {LEAGUES.map((l) => {
             const selected = l.key === league;
@@ -148,7 +148,7 @@ export default function Fixture() {
         </div>
       </div>
 
-      <div className="mx-auto mt-5 max-w-245 px-10 pb-20">
+      <div className="mx-auto mt-5 max-w-245 px-5 pb-20 md:px-10">
         {!matches ? (
           <div className="py-20">
             <Spinner />
@@ -173,7 +173,7 @@ export default function Fixture() {
             </div>
 
             <div
-              className="mx-0.5 mt-4.5 flex items-center gap-6"
+              className="mx-0.5 mt-4.5 flex flex-wrap items-center gap-x-6 gap-y-2"
               style={{
                 font: "600 12.5px/1 'Barlow',sans-serif",
                 color: "rgba(245,241,232,.65)",

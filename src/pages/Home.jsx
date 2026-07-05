@@ -22,8 +22,8 @@ export default function Home() {
       <Navbar></Navbar>
 
       <div
-        className="relative overflow-hidden"
-        style={{ height: "600px", background: "#0b1e3d" }}
+        className="relative h-120 overflow-hidden md:h-150"
+        style={{ background: "#0b1e3d" }}
       >
         <div
           className="absolute inset-0 bg-cover bg-position-[center_36%]"
@@ -36,10 +36,7 @@ export default function Home() {
               "linear-gradient(180deg, rgba(6,15,30,.66) 0%, rgba(6,15,30,.25) 36%, rgba(11,30,61,.6) 74%, #0b1e3d 100%)",
           }}
         />
-        <div
-          className="relative mx-auto flex h-full flex-col justify-end"
-          style={{ maxWidth: "1240px", padding: "0 40px 60px" }}
-        >
+        <div className="relative mx-auto flex h-full max-w-310 flex-col justify-end px-5 pb-10 md:px-10 md:pb-15">
           <div className="mb-4.5 flex items-center gap-3.5">
             <span
               style={{ width: "48px", height: "2px", background: "#ffd43b" }}
@@ -66,8 +63,13 @@ export default function Home() {
               textShadow: "0 6px 28px rgba(0,0,0,.55)",
             }}
           >
-            <span className="block text-[82px]">Her Şey</span>
-            <span className="block text-[82px]" style={{ color: "#ffd43b" }}>
+            <span className="block text-[46px] sm:text-[64px] md:text-[82px]">
+              Her Şey
+            </span>
+            <span
+              className="block text-[46px] sm:text-[64px] md:text-[82px]"
+              style={{ color: "#ffd43b" }}
+            >
               1907'de Başladı
             </span>
           </h1>
@@ -104,11 +106,10 @@ export default function Home() {
       </div>
       <section
         id="haberler"
-        className="mx-auto w-full"
-        style={{ maxWidth: "1240px", padding: "58px 40px 24px" }}
+        className="mx-auto w-full max-w-310 px-5 pt-10 pb-6 md:px-10 md:pt-14.5"
       >
         <div
-          className="flex items-end justify-between gap-6"
+          className="flex flex-wrap items-end justify-between gap-6"
           style={{
             paddingBottom: "22px",
             borderBottom: "1px solid rgba(255,212,59,.18)",
@@ -155,10 +156,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div
-          className="grid items-start gap-7.5"
-          style={{ gridTemplateColumns: "minmax(0,1fr) 358px" }}
-        >
+        <div className="grid items-start gap-7.5 lg:grid-cols-[minmax(0,1fr)_358px]">
           <div>
             {featured && (
               <Link
@@ -169,7 +167,7 @@ export default function Home() {
                 <FeaturedNewsCard newsObj={featured} />
               </Link>
             )}
-            <div className="mt-5.5 grid grid-cols-2 gap-5.5">
+            <div className="mt-5.5 grid grid-cols-1 gap-5.5 sm:grid-cols-2">
               {rest.map((article, i) => (
                 <Link
                   key={article.url ?? i}

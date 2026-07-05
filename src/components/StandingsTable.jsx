@@ -48,7 +48,7 @@ export default function StandingsTable() {
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-center px-6 py-14 font-[Barlow,sans-serif]">
+    <div className="flex w-full flex-col items-center justify-center px-3 py-10 font-[Barlow,sans-serif] md:px-6 md:py-14">
       <div className="mb-7 flex w-full max-w-275 flex-col">
         <span className="text-accent text-xs font-bold tracking-[0.24em] uppercase">
           Trendyol Süper Lig · 2025/26
@@ -61,16 +61,26 @@ export default function StandingsTable() {
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b border-white/10 bg-white/3 text-[11px] font-bold tracking-widest text-text/55 uppercase">
-              <th className="w-12 py-3.5 text-center">#</th>
+              <th className="w-10 py-3.5 text-center md:w-12">#</th>
               <th className="py-3.5 pl-2 text-left">Takımlar</th>
-              <th className="w-10 py-3.5 text-center">O</th>
-              <th className="w-10 py-3.5 text-center">G</th>
-              <th className="w-10 py-3.5 text-center">B</th>
-              <th className="w-10 py-3.5 text-center">M</th>
-              <th className="w-12 py-3.5 text-center">AG</th>
-              <th className="w-12 py-3.5 text-center">YG</th>
-              <th className="w-14 py-3.5 text-center">AV</th>
-              <th className="w-16 py-3.5 text-center text-accent">P</th>
+              <th className="w-8 py-3.5 text-center md:w-10">O</th>
+              <th className="hidden w-10 py-3.5 text-center sm:table-cell">
+                G
+              </th>
+              <th className="hidden w-10 py-3.5 text-center sm:table-cell">
+                B
+              </th>
+              <th className="hidden w-10 py-3.5 text-center sm:table-cell">
+                M
+              </th>
+              <th className="hidden w-12 py-3.5 text-center md:table-cell">
+                AG
+              </th>
+              <th className="hidden w-12 py-3.5 text-center md:table-cell">
+                YG
+              </th>
+              <th className="w-10 py-3.5 text-center md:w-14">AV</th>
+              <th className="text-accent w-12 py-3.5 text-center md:w-16">P</th>
             </tr>
           </thead>
           <tbody>
@@ -117,22 +127,22 @@ export default function StandingsTable() {
                     </div>
                   </td>
 
-                  <td className="text-center text-sm text-text/70">
+                  <td className="text-text/70 text-center text-sm">
                     {team.played}
                   </td>
-                  <td className="text-center text-sm text-text/70">
+                  <td className="text-text/70 hidden text-center text-sm sm:table-cell">
                     {team.wins}
                   </td>
-                  <td className="text-center text-sm text-text/70">
+                  <td className="text-text/70 hidden text-center text-sm sm:table-cell">
                     {team.draws}
                   </td>
-                  <td className="text-center text-sm text-text/70">
+                  <td className="text-text/70 hidden text-center text-sm sm:table-cell">
                     {team.losses}
                   </td>
-                  <td className="text-center text-sm text-text/70">
+                  <td className="text-text/70 hidden text-center text-sm md:table-cell">
                     {goalsScored}
                   </td>
-                  <td className="text-center text-sm text-text/70">
+                  <td className="text-text/70 hidden text-center text-sm md:table-cell">
                     {goalsConceded}
                   </td>
                   <td

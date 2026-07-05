@@ -67,17 +67,11 @@ export default function Article() {
         style={{ background: PAGE_BG }}
       >
         <Navbar />
-        <div
-          className="w-full flex-1"
-          style={{ maxWidth: "820px", margin: "0 auto", padding: "46px 40px 70px" }}
-        >
+        <div className="mx-auto w-full max-w-205 flex-1 px-5 pt-11.5 pb-17.5 md:px-10">
           <Breadcrumb />
           <h1
-            className="text-text uppercase"
-            style={{
-              margin: "26px 0 0",
-              font: "800 52px/1 'Barlow Condensed',sans-serif",
-            }}
+            className="text-text mt-6.5 mb-0 text-[36px] leading-none font-extrabold uppercase md:text-[52px]"
+            style={{ fontFamily: "'Barlow Condensed',sans-serif" }}
           >
             Haber bulunamadı
           </h1>
@@ -112,13 +106,10 @@ export default function Article() {
     >
       <Navbar />
 
-      <div
-        className="w-full flex-1"
-        style={{ maxWidth: "820px", margin: "0 auto", padding: "46px 40px 70px" }}
-      >
+      <div className="mx-auto w-full max-w-205 flex-1 px-5 pt-11.5 pb-17.5 md:px-10">
         <Breadcrumb />
 
-        <div className="flex items-center" style={{ gap: "12px", marginTop: "26px" }}>
+        <div className="flex flex-wrap items-center" style={{ gap: "12px", marginTop: "26px" }}>
           <span
             className="inline-flex items-center uppercase"
             style={{
@@ -146,10 +137,9 @@ export default function Article() {
         </div>
 
         <h1
-          className="text-text uppercase"
+          className="text-text mt-4.5 mb-0 text-[36px] leading-none font-extrabold uppercase md:text-[52px]"
           style={{
-            margin: "18px 0 0",
-            font: "800 52px/1 'Barlow Condensed',sans-serif",
+            fontFamily: "'Barlow Condensed',sans-serif",
             letterSpacing: ".005em",
             textWrap: "pretty",
           }}

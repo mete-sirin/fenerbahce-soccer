@@ -35,7 +35,7 @@ export default function StandingsWidget() {
   if (!standings) {
     return (
       <div
-        className="flex w-89.5 items-center justify-center rounded-[14px] border border-white/12 py-10"
+        className="flex w-full items-center justify-center rounded-[14px] border border-white/12 py-10 lg:w-89.5"
         style={{ background: "#0f2547" }}
       >
         <Spinner />
@@ -48,7 +48,7 @@ export default function StandingsWidget() {
   });
   return (
     <div
-      className="w-89.5 overflow-hidden rounded-[14px] border border-white/12"
+      className="w-full overflow-hidden rounded-[14px] border border-white/12 lg:w-89.5"
       style={{ background: "#0f2547", fontFamily: "'Barlow',sans-serif" }}
     >
       <div className="flex items-center justify-between border-b border-white/11 px-4.5 py-3.5">

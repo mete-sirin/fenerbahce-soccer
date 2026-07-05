@@ -109,13 +109,12 @@ function StatRow({ row, small }) {
   };
   return (
     <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: small ? "86px 1fr 86px" : "110px 1fr 110px",
-        alignItems: "center",
-        padding: small ? "9px 22px" : "11px 26px",
-        borderTop: "1px solid rgba(255,255,255,.05)",
-      }}
+      className={`grid items-center ${
+        small
+          ? "grid-cols-[64px_1fr_64px] px-4 py-2.25 md:grid-cols-[86px_1fr_86px] md:px-5.5"
+          : "grid-cols-[72px_1fr_72px] px-4 py-2.75 md:grid-cols-[110px_1fr_110px] md:px-6.5"
+      }`}
+      style={{ borderTop: "1px solid rgba(255,255,255,.05)" }}
     >
       <span
         style={{
@@ -229,7 +228,7 @@ export default function Match() {
       <Navbar />
 
       <div style={{ paddingBottom: "60px" }}>
-        <div style={{ maxWidth: "860px", margin: "0 auto", padding: "44px 40px 0" }}>
+        <div className="mx-auto max-w-215 px-4 pt-9 md:px-10 md:pt-11">
           <div style={card}>
             {competition && (
               <div
@@ -263,15 +262,7 @@ export default function Match() {
                 )}
               </div>
             )}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr auto 1fr",
-                alignItems: "center",
-                gap: "16px",
-                padding: "30px 34px",
-              }}
-            >
+            <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 p-4 md:gap-4 md:px-8.5 md:py-7.5">
               <div
                 style={{
                   display: "flex",
@@ -286,8 +277,9 @@ export default function Match() {
                   size={72}
                 />
                 <span
+                  className="text-center"
                   style={{
-                    font: "700 18px/1 'Barlow Condensed',sans-serif",
+                    font: "700 18px/1.1 'Barlow Condensed',sans-serif",
                     letterSpacing: ".04em",
                     textTransform: "uppercase",
                     color: "#ffd43b",
@@ -304,26 +296,29 @@ export default function Match() {
                   gap: "8px",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                <div className="flex items-center gap-2.5 md:gap-4">
                   <span
+                    className="text-[40px] leading-none font-extrabold md:text-[64px]"
                     style={{
-                      font: "800 64px/1 'Barlow Condensed',sans-serif",
+                      fontFamily: "'Barlow Condensed',sans-serif",
                       color: "#ffd43b",
                     }}
                   >
                     {scoreFor(currentMatch.sidesObject.homeTeam.id)}
                   </span>
                   <span
+                    className="text-[20px] leading-none font-bold md:text-[30px]"
                     style={{
-                      font: "700 30px/1 'Barlow Condensed',sans-serif",
+                      fontFamily: "'Barlow Condensed',sans-serif",
                       color: "rgba(245,241,232,.4)",
                     }}
                   >
                     –
                   </span>
                   <span
+                    className="text-[40px] leading-none font-extrabold md:text-[64px]"
                     style={{
-                      font: "800 64px/1 'Barlow Condensed',sans-serif",
+                      fontFamily: "'Barlow Condensed',sans-serif",
                       color: "#f5f1e8",
                     }}
                   >
@@ -367,8 +362,9 @@ export default function Match() {
                   size={72}
                 />
                 <span
+                  className="text-center"
                   style={{
-                    font: "700 18px/1 'Barlow Condensed',sans-serif",
+                    font: "700 18px/1.1 'Barlow Condensed',sans-serif",
                     letterSpacing: ".04em",
                     textTransform: "uppercase",
                     color: "#f5f1e8",
@@ -382,7 +378,7 @@ export default function Match() {
         </div>
 
         {poss && (
-        <div style={{ maxWidth: "860px", margin: "22px auto 0", padding: "0 40px" }}>
+        <div className="mx-auto mt-5.5 max-w-215 px-4 md:px-10">
           <div style={{ ...card, padding: "22px 26px" }}>
             <div
               style={{
@@ -448,7 +444,7 @@ export default function Match() {
         )}
 
         {topStats.length > 0 && (
-        <div style={{ maxWidth: "860px", margin: "22px auto 0", padding: "0 40px" }}>
+        <div className="mx-auto mt-5.5 max-w-215 px-4 md:px-10">
           <div style={card}>
             <div
               style={{
@@ -475,17 +471,7 @@ export default function Match() {
         </div>
         )}
 
-        <div
-          style={{
-            maxWidth: "860px",
-            margin: "22px auto 0",
-            padding: "0 40px",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "22px",
-            alignItems: "start",
-          }}
-        >
+        <div className="mx-auto mt-5.5 grid max-w-215 grid-cols-1 items-start gap-5.5 px-4 md:grid-cols-2 md:px-10">
           {sections.map((sec) => (
             <div key={sec.title} style={card}>
               <div
