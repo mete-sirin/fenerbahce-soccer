@@ -33,7 +33,7 @@ The frontend calls the project's own `/api/*` serverless functions, which proxy 
 
 - `api/_lib/rapid.js` wraps a RapidAPI football-data endpoint (matches, standings, squad, match stats).
 - `api/_lib/cache.js` caches each endpoint's response in a Postgres table (Neon) with a per-endpoint TTL (1h for matches/standings, 24h for squad/match details), and falls back to the last cached value if the upstream call fails.
-- `api/news-generate.js` runs on a daily Vercel Cron job. It calls OpenAI's Responses API with the web search tool to produce Turkish-language Fenerbahçe news articles, validates the output against a Zod schema, and writes it to the same cache table. `api/news.js` just reads whatever is cached.
+- `api/refresh.js` runs on a daily Vercel Cron job (midnight Turkey time). It re-fetches matches, standings, and squad into the cache, and calls OpenAI's Responses API with the web search tool to produce Turkish-language Fenerbahçe news articles, validated against a Zod schema and written to the same cache table. `api/news.js` just reads whatever is cached.
 - On the client, `useNews` reads from `/api/news` and caches the result in `localStorage` for a few hours; until the first cron run has happened, it falls back to a bundled `src/data/news.json`.
 
 ## Environment variables
@@ -43,5 +43,5 @@ The frontend calls the project's own `/api/*` serverless functions, which proxy 
 | `DATABASE_URL` | Neon Postgres connection string, used for caching |
 | `RAPIDAPI_KEY` | RapidAPI football-data access |
 | `OPENAI_API_KEY` | News generation (read implicitly by the OpenAI SDK) |
-| `CRON_SECRET` | Authenticates the `/api/news-generate` cron endpoint |
+| `CRON_SECRET` | Authenticates the `/api/refresh` cron endpoint |
 

@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
 import MatchBar from "../components/MatchBar";
 import fetchMatches from "../scripts/fetchMatches";
+import { readLocalCache, writeLocalCache } from "../scripts/localCache";
 import { LEAGUES } from "../data/leagues";
 
 const FENERBAHCE_ID = 8695;
@@ -55,15 +56,9 @@ function toFbMatches(rawMatches) {
 
 export default function Fixture() {
   const [league, setLeague] = useState(LEAGUES[0].key);
-  const [matchesByLeague, setMatchesByLeague] = useState(() => {
-    try {
-      const cached = localStorage.getItem("fixtureMatches");
-      return cached ? JSON.parse(cached) : {};
-    } catch {
-      localStorage.removeItem("fixtureMatches");
-      return {};
-    }
-  });
+  const [matchesByLeague, setMatchesByLeague] = useState(
+    () => readLocalCache("fixtureMatches", 60 * 60 * 1000) ?? {},
+  );
 
   const attemptedFetch = useRef(false);
 
@@ -75,7 +70,7 @@ export default function Fixture() {
       const { data, errors } = await fetchMatches();
       if (Object.keys(errors).length) console.error("fetchMatches:", errors);
       if (Object.keys(data).length === 0) return;
-      localStorage.setItem("fixtureMatches", JSON.stringify(data));
+      writeLocalCache("fixtureMatches", data);
       setMatchesByLeague(data);
     }
     getMatches();

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import fetchSquad from "../scripts/fetchSquad";
+import { readLocalCache, writeLocalCache } from "../scripts/localCache";
 import PlayerCard from "../components/PlayerCard";
 import Spinner from "../components/Spinner";
 import Navbar from "../components/Navbar";
@@ -17,10 +18,9 @@ const POSITION_LABELS = {
 export default function Squad() {
   const positionsArr = ["attackers", "midfielders", "defenders", "keepers"];
   const [position, setPosition] = useState(positionsArr.at(0));
-  const [squad, setSquad] = useState(() => {
-    const cached = localStorage.getItem("squad");
-    return cached ? JSON.parse(cached) : null;
-  });
+  const [squad, setSquad] = useState(() =>
+    readLocalCache("squad", 24 * 60 * 60 * 1000),
+  );
 
   useEffect(() => {
     if (squad) return;
@@ -31,7 +31,7 @@ export default function Squad() {
       const groups = data.response.list.squad.filter(
         (g) => g.title !== "coach",
       );
-      localStorage.setItem("squad", JSON.stringify(groups));
+      writeLocalCache("squad", groups);
       setSquad(groups);
     }
     getPlayers();

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import fetchStandings from "../scripts/fetchStandings";
+import { readLocalCache, writeLocalCache } from "../scripts/localCache";
 import { NavLink } from "react-router";
 import TeamLogo from "./TeamLogo";
 import Spinner from "./Spinner";
@@ -7,15 +8,9 @@ import Spinner from "./Spinner";
 const FENERBAHCE_ID = 8695;
 
 export default function StandingsWidget() {
-  const [standings, setStandings] = useState(() => {
-    try {
-      const cached = localStorage.getItem("standings");
-      return cached ? JSON.parse(cached) : null;
-    } catch {
-      localStorage.removeItem("standings");
-      return null;
-    }
-  });
+  const [standings, setStandings] = useState(() =>
+    readLocalCache("standings", 60 * 60 * 1000),
+  );
 
   useEffect(() => {
     if (standings) return;
@@ -23,7 +18,7 @@ export default function StandingsWidget() {
       try {
         const data = await fetchStandings();
         if (!data) return;
-        localStorage.setItem("standings", JSON.stringify(data));
+        writeLocalCache("standings", data);
         setStandings(data);
       } catch (error) {
         console.log(error);

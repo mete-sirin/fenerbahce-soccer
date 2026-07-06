@@ -2,6 +2,9 @@ import OpenAI from "openai";
 import { zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
 import { writeCache } from "./_lib/cache.js";
+import { fetchAllLeagues } from "./matches.js";
+import { fetchSquad } from "./squad/index.js";
+import { fetchStandings } from "./standings.js";
 
 const ArticleSchema = z.object({
   headline: z.string().describe("Short, factual headline"),
@@ -67,7 +70,6 @@ CRITICAL: Do not put citation markers, footnotes, or markdown links like ([site.
     return null;
   }
 
-.
   if (!response.output_text) {
     console.error(
       `news generation produced no output_text (id=${response.id}, status=${response.status})`,
@@ -88,22 +90,43 @@ CRITICAL: Do not put citation markers, footnotes, or markdown links like ([site.
 }
 
 export default async function handler(req, res) {
-
   if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) {
     res.status(401).json({ error: "unauthorized" });
     return;
   }
 
-  try {
-    const news = await createNews();
-    if (!news?.articles?.length) {
-      res.status(502).json({ error: "news generation returned nothing" });
-      return;
-    }
-    await writeCache("news", news);
-    res.status(200).json({ ok: true, count: news.articles.length });
-  } catch (error) {
-    console.error(error);
-    res.status(502).json({ error: "news generation failed" });
-  }
+  const jobs = {
+    matches: async () => {
+      const matches = await fetchAllLeagues();
+      if (Object.keys(matches.errors).length > 0) {
+        throw new Error(`partial result: ${JSON.stringify(matches.errors)}`);
+      }
+      await writeCache("matches", matches);
+    },
+    squad: async () => writeCache("squad", await fetchSquad()),
+    standings: async () => writeCache("standings", await fetchStandings()),
+    news: async () => {
+      const news = await createNews();
+      if (!news?.articles?.length) {
+        throw new Error("news generation returned nothing");
+      }
+      await writeCache("news", news);
+    },
+  };
+
+  const results = {};
+  await Promise.all(
+    Object.entries(jobs).map(async ([key, job]) => {
+      try {
+        await job();
+        results[key] = "ok";
+      } catch (error) {
+        console.error(`refresh ${key} failed:`, error);
+        results[key] = String(error?.message ?? error);
+      }
+    }),
+  );
+
+  const allOk = Object.values(results).every((r) => r === "ok");
+  res.status(allOk ? 200 : 502).json(results);
 }

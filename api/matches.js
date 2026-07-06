@@ -1,7 +1,7 @@
 import { cachedFetch } from "./_lib/cache.js";
 import { rapidGet } from "./_lib/rapid.js";
 
-const TTL = 60 * 60; // 1h
+const TTL = 60 * 60;
 
 const LEAGUES = [
   { key: "MainLeague", id: 71 },
@@ -9,7 +9,7 @@ const LEAGUES = [
   { key: "NationalCup", id: 151 },
 ];
 
-async function fetchAllLeagues() {
+export async function fetchAllLeagues() {
   const results = await Promise.allSettled(
     LEAGUES.map((l) =>
       rapidGet(`football-get-all-matches-by-league?leagueid=${l.id}`),

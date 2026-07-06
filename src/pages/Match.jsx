@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import TeamLogo from "../components/TeamLogo";
 import { useParams } from "react-router";
 import fetchMatchDetails from "../scripts/fetchMatchDetails";
+import { readLocalCache } from "../scripts/localCache";
 import { LEAGUES } from "../data/leagues";
 import { useState, useEffect } from "react";
 
@@ -59,14 +60,10 @@ const SECTION_TR = {
 // the match-details API doesn't return the kickoff date or the score, so we
 // look them up from the fixture list already cached by the fixture/home pages
 function findCachedMatch(matchId) {
-  try {
-    const cached = JSON.parse(localStorage.getItem("fixtureMatches")) ?? {};
-    for (const [leagueKey, matches] of Object.entries(cached)) {
-      const match = matches.find((m) => String(m.id) === String(matchId));
-      if (match) return { ...match, leagueKey };
-    }
-  } catch {
-    localStorage.removeItem("fixtureMatches");
+  const cached = readLocalCache("fixtureMatches", 60 * 60 * 1000) ?? {};
+  for (const [leagueKey, matches] of Object.entries(cached)) {
+    const match = matches.find((m) => String(m.id) === String(matchId));
+    if (match) return { ...match, leagueKey };
   }
   return null;
 }

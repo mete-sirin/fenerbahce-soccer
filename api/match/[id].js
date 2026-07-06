@@ -1,7 +1,7 @@
 import { cachedFetch } from "../_lib/cache.js";
 import { rapidGet } from "../_lib/rapid.js";
 
-const TTL = 24 * 60 * 60; // stats pages are mostly visited for finished matches
+const TTL = 24 * 60 * 60;
 
 export default async function handler(req, res) {
   const { id } = req.query;

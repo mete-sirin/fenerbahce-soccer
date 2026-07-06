@@ -2,14 +2,6 @@ import { neon } from "@neondatabase/serverless";
 
 const sql = neon(process.env.DATABASE_URL);
 
-/*
-  CREATE TABLE IF NOT EXISTS api_cache (
-    key text PRIMARY KEY,
-    data jsonb NOT NULL,
-    fetched_at timestamptz NOT NULL DEFAULT now()
-  );
-*/
-
 export async function readCache(key) {
   const rows = await sql`
     SELECT data, extract(epoch FROM (now() - fetched_at)) AS age
@@ -27,9 +19,6 @@ export async function writeCache(key, data) {
   `;
 }
 
-// Serve from Neon while fresh; otherwise fetch, cache, and fall back to the
-// stale copy if the upstream call fails. `shouldCache` lets callers skip
-// caching partial results.
 export async function cachedFetch(
   key,
   ttlSeconds,
